@@ -36,12 +36,13 @@ Another way to debug/test is to view all cookies
 print_r($_COOKIE); 
 */
 
-
-       
+{
         // The cookie will be available within the entire domain
         // Sets the Http Only flag
         setcookie("top_security", "maybe", time()+3600, "/", "", false, true);        
         break;
+}
+
 
    
 
