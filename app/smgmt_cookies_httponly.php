@@ -17,7 +17,6 @@ bWAPP is licensed under a Creative Commons Attribution-NonCommercial-NoDerivativ
 */
 
 include("security.php");
-include("security_level_check.php");
 include("selections.php");
 
 /* 
@@ -36,38 +35,13 @@ Another way to debug/test is to view all cookies
 print_r($_COOKIE); 
 */
 
-switch($_COOKIE["security_level"])
-{
-           
-    case "0" : 
        
         // The cookie will be available within the entire domain
         // Sets the Http Only flag
         setcookie("top_security", "maybe", time()+3600, "/", "", false, true);        
         break;
 
-        
-    case "1" :
-        
-        // The cookie will be available within the entire domain
-        setcookie("top_security", "no", time()+3600, "/", "", false, false);
-        break;
-        
-    case "2" :            
-
-        // The cookie will be available within the entire domain
-        // The cookie expires at end of the session
-        // Sets the Http Only flag
-        setcookie("top_security", "yes", time()+300, "/", "", false, true); 
-        break;
-        
-    default : 
-            
-        // The cookie will be available within the entire domain
-        setcookie("top_security", "no", time()+3600, "/", "", false, false);       
-        break;
-       
-}
+    
 
 ?>
 <!DOCTYPE html>
@@ -103,6 +77,7 @@ function show_my_cookies()
     
 <header>
 
+
 <h1>bWAPP</h1>
 
 <h2>an extremely buggy web app !</h2>
@@ -118,7 +93,6 @@ function show_my_cookies()
             <td><a href="portal.php">Bugs</a></td>
             <td><a href="password_change.php">Change Password</a></td>
             <td><a href="user_extra.php">Create User</a></td>
-            <td><a href="security_level_set.php">Set Security Level</a></td>
             <td><a href="reset.php" onclick="return confirm('All settings will be cleared. Are you sure?');">Reset</a></td>            
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
@@ -204,26 +178,6 @@ if(isset($_POST["form"]))
     
 </div>
     
-<div id="security_level">
-  
-    <form action="<?php echo($_SERVER["SCRIPT_NAME"]);?>" method="POST">
-        
-        <label>Set your security level:</label><br />
-        
-        <select name="security_level">
-            
-            <option value="0">low</option>
-            <option value="1">medium</option>
-            <option value="2">high</option> 
-            
-        </select>
-        
-        <button type="submit" name="form_security_level" value="submit">Set</button>
-        <font size="4">Current: <b><?php echo $security_level?></b></font>
-        
-    </form>   
-    
-</div>
     
 <div id="bug">
 
