@@ -36,15 +36,38 @@ Another way to debug/test is to view all cookies
 print_r($_COOKIE); 
 */
 
+switch($_COOKIE["security_level"])
 {
+           
+    case "0" : 
+       
         // The cookie will be available within the entire domain
         // Sets the Http Only flag
         setcookie("top_security", "maybe", time()+3600, "/", "", false, true);        
         break;
+
+        
+    case "1" :
+        
+        // The cookie will be available within the entire domain
+        setcookie("top_security", "no", time()+3600, "/", "", false, false);
+        break;
+        
+    case "2" :            
+
+        // The cookie will be available within the entire domain
+        // The cookie expires at end of the session
+        // Sets the Http Only flag
+        setcookie("top_security", "yes", time()+300, "/", "", false, true); 
+        break;
+        
+    default : 
+            
+        // The cookie will be available within the entire domain
+        setcookie("top_security", "no", time()+3600, "/", "", false, false);       
+        break;
+       
 }
-
-
-   
 
 ?>
 <!DOCTYPE html>
