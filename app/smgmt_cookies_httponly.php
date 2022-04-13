@@ -17,6 +17,7 @@ bWAPP is licensed under a Creative Commons Attribution-NonCommercial-NoDerivativ
 */
 
 include("security.php");
+include("security_level_check.php");
 include("selections.php");
 
 /* 
@@ -34,14 +35,11 @@ echo $_COOKIE["top_security"];
 Another way to debug/test is to view all cookies
 print_r($_COOKIE); 
 */
-
-       
-        // The cookie will be available within the entire domain
-        // Sets the Http Only flag
-        setcookie("top_security", "maybe", time()+3600, "/", "", false, true);        
-        break;
-
     
+    // The cookie will be available within the entire domain
+    // Sets the Http Only flag
+    setcookie("top_security", "maybe", time()+3600, "/", "", false, true);        
+      
 
 ?>
 <!DOCTYPE html>
@@ -77,7 +75,6 @@ function show_my_cookies()
     
 <header>
 
-
 <h1>bWAPP</h1>
 
 <h2>an extremely buggy web app !</h2>
@@ -93,6 +90,7 @@ function show_my_cookies()
             <td><a href="portal.php">Bugs</a></td>
             <td><a href="password_change.php">Change Password</a></td>
             <td><a href="user_extra.php">Create User</a></td>
+            <td><a href="security_level_set.php">Set Security Level</a></td>
             <td><a href="reset.php" onclick="return confirm('All settings will be cleared. Are you sure?');">Reset</a></td>            
             <td><a href="credits.php">Credits</a></td>
             <td><a href="http://itsecgames.blogspot.com" target="_blank">Blog</a></td>
@@ -107,7 +105,7 @@ function show_my_cookies()
 
 <div id="main">
     
-    <h1>Session Mgmt. - Cookies (HTTPOnly) - changed</h1>
+    <h1>Session Mgmt. - Cookies (HTTPOnly)</h1>
     
     <form action="<?php echo($_SERVER["SCRIPT_NAME"]);?>" method="POST">
 
@@ -178,6 +176,26 @@ if(isset($_POST["form"]))
     
 </div>
     
+<div id="security_level">
+  
+    <form action="<?php echo($_SERVER["SCRIPT_NAME"]);?>" method="POST">
+        
+        <label>Set your security level:</label><br />
+        
+        <select name="security_level">
+            
+            <option value="0">low</option>
+            <option value="1">medium</option>
+            <option value="2">high</option> 
+            
+        </select>
+        
+        <button type="submit" name="form_security_level" value="submit">Set</button>
+        <font size="4">Current: <b><?php echo $security_level?></b></font>
+        
+    </form>   
+    
+</div>
     
 <div id="bug">
 
